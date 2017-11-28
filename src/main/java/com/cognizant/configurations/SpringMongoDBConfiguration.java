@@ -14,7 +14,7 @@ import com.mongodb.MongoClient;
 public class SpringMongoDBConfiguration {
 
 	public @Bean MongoDbFactory getMongoDbFactory() throws Exception {
-		return new SimpleMongoDbFactory(new MongoClient("localhost",27017), "database");
+		return new SimpleMongoDbFactory(new MongoClient("localhost",27017), "att_compliance_Forms");
 	}
 
 	public @Bean MongoTemplate getMongoTemplate() throws Exception {

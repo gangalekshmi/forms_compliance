@@ -1,66 +1,72 @@
 package com.cognizant.model;
 
+import java.util.List;
+
 public class Employee {
 
-	public String empId;
-	public String empName;
-	public boolean formA;
-	public boolean formB;
-	public String mngrName;
-	public String prjName;
+	public String empid;
+	public String empname;		
+	public boolean ndcFormCompliant;
+	public boolean ciaFormCompliant;
+	public String MngrName;
+	
+	public List<Project> prj_assignments;
 
-	public String getEmpId() {
-		return empId;
+	public String getEmpid() {
+		return empid;
 	}
 
-	public void setEmpId(String empId) {
-		this.empId = empId;
+	public void setEmpid(String empid) {
+		this.empid = empid;
 	}
 
-	public String getEmpName() {
-		return empName;
+	public String getEmpname() {
+		return empname;
 	}
 
-	public void setEmpName(String empName) {
-		this.empName = empName;
+	public void setEmpname(String empname) {
+		this.empname = empname;
 	}
 
-	public boolean isFormA() {
-		return formA;
-	}
-
-	public void setFormA(boolean formA) {
-		this.formA = formA;
-	}
-
-	public boolean isFormB() {
-		return formB;
-	}
-
-	public void setFormB(boolean formB) {
-		this.formB = formB;
-	}
 
 	public String getMngrName() {
-		return mngrName;
+		return MngrName;
 	}
 
 	public void setMngrName(String mngrName) {
-		this.mngrName = mngrName;
+		MngrName = mngrName;
 	}
 
-	public String getPrjName() {
-		return prjName;
+	public List<Project> getPrj_assignments() {
+		return prj_assignments;
 	}
 
-	public void setPrjName(String prjName) {
-		this.prjName = prjName;
+	public void setPrj_assignments(List<Project> prj_assignments) {
+		this.prj_assignments = prj_assignments;
+	}
+
+	public boolean isNdcFormCompliant() {
+		return ndcFormCompliant;
+	}
+
+	public void setNdcFormCompliant(boolean ndcFormCompliant) {
+		this.ndcFormCompliant = ndcFormCompliant;
+	}
+
+	public boolean isCiaFormCompliant() {
+		return ciaFormCompliant;
+	}
+
+	public void setCiaFormCompliant(boolean ciaFormCompliant) {
+		this.ciaFormCompliant = ciaFormCompliant;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName + ", FormA=" + formA + ", FormB=" + formB
-				+ ", mngrName=" + mngrName + ", prjName=" + prjName + "]";
+		return "Employee [empid=" + empid + ", empname=" + empname + ", ndcFormCompliant=" + ndcFormCompliant
+				+ ", ciaFormCompliant=" + ciaFormCompliant + ", MngrName=" + MngrName +"]";
 	}
 
+	
+	
 }

@@ -8,5 +8,5 @@ public interface Empinfodao {
 
 	public List<Object> getDetails();
 
-	public List<Object> getEmpById(String id,String name);
+	public List<Object> getEmpById(String id);
 }
