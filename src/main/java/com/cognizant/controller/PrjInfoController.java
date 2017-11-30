@@ -14,6 +14,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cognizant.model.Compliance;
 import com.cognizant.model.Project;
 import com.cognizant.services.PrjInfoserviceImpl;
 
@@ -36,17 +37,16 @@ public class PrjInfoController {
 	@RequestMapping(value = "/prj/{id}/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public Object getEmployee(@PathVariable String id,@PathVariable String name) {
 				List<Object> prjList = prjservice.getProjectDetails(id,name);
-				
-//				LOGGER.debug("Getting project details");
-//
-//				Object prjRsp = (prjList!=null && prjList.isEmpty()) ? prjList.get(0) : null;
-//
-//				LOGGER.debug("Project details " + prjRsp);
-				
 				return prjList;
 				
 
 	}
 	
+	@RequestMapping(value = "/project/{projectId}/{projectName}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public Compliance getEmployeeDetails(@PathVariable String projectId,@PathVariable String projectName){
+		LOGGER.debug("Getting employee and project details");
+		Compliance compliance=prjservice.getEmpDetails(projectId,projectName);
+		return compliance;
+	}
 
 }

@@ -1,6 +1,7 @@
 com\cognizant\configurations\SpringMongoDBConfiguration.class
 com\cognizant\controller\PrjInfoController.class
 com\cognizant\dao\PrjInfodao.class
+com\cognizant\model\Compliance.class
 com\cognizant\services\PrjInfoserviceImpl.class
 com\cognizant\model\Project.class
 com\cognizant\dao\Empinfodao.class

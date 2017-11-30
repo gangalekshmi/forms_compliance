@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cognizant.dao.PrjInfodao;
+import com.cognizant.model.Compliance;
 
 
 
@@ -27,4 +28,10 @@ public class PrjInfoserviceImpl {
 
 	}
 
+	public Compliance getEmpDetails(String projectId,String projectName) {
+		// TODO Auto-generated method stub
+		
+		return PrjInfodaoimpl.getEmpDetails(projectId, projectName);
+	}
+	
 }

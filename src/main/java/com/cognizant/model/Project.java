@@ -10,7 +10,7 @@ package com.cognizant.model;
 public class Project {
 	
 	String prjId;
-	private String prjName;
+	String prjName;
 	int Total_No_of_emp;
 	int No_of_Compliance;
 	int No_of_Nonvompliance;
@@ -23,6 +23,15 @@ public class Project {
 	
 	public void setPrjId(String prjId) {
 		this.prjId = prjId;
+		
+	}
+	
+	public String getPrjName() {
+		return prjName;
+	}
+
+	public void setPrjName(String prjName) {
+		this.prjName = prjName;
 	}
 	public int getTotal_No_of_emp() {
 		return Total_No_of_emp;
@@ -41,14 +50,6 @@ public class Project {
 	}
 	public void setNo_of_Nonvompliance(int no_of_Nonvompliance) {
 		No_of_Nonvompliance = no_of_Nonvompliance;
-	}
-	
-	public String getPrjName() {
-		return prjName;
-	}
-
-	public void setPrjName(String prjName) {
-		this.prjName = prjName;
 	}
 	
 	

@@ -5,6 +5,7 @@ package com.cognizant.services;
 
 import java.util.List;
 
+import com.cognizant.model.Compliance;
 import com.cognizant.model.Project;
 
 /**
@@ -15,4 +16,6 @@ public interface PrjInfoService {
 
 	
 	public List<Object> getProjectDetails(String id,String name);
+	
+	public Compliance getEmpDetails(String projectId,String projectName);
 }
