@@ -18,20 +18,14 @@ import com.cognizant.model.Compliance;
  *
  */
 @Service
-public class PrjInfoserviceImpl {
+public class PrjInfoserviceImpl implements PrjInfoService {
 	
 	@Autowired
 	PrjInfodao PrjInfodaoimpl;
-	
-	public List<Object> getProjectDetails(String id,String name) {
-		return PrjInfodaoimpl.getProjectDetails(id, name);
-
-	}
-
-	public Compliance getEmpDetails(String projectId,String projectName) {
-		// TODO Auto-generated method stub
 		
-		return PrjInfodaoimpl.getEmpDetails(projectId, projectName);
+	public Compliance getProjectComplianceDetails(String projectId,String projectName) {
+		// TODO Auto-generated method stub		
+		return PrjInfodaoimpl.getProjectComplianceDetails(projectId, projectName);
 	}
 	
 }

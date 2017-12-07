@@ -9,6 +9,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
@@ -23,6 +26,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.WriteResult;
 
 @Repository
 public class Empinfodaoimpl implements Empinfodao {
@@ -31,8 +35,12 @@ public class Empinfodaoimpl implements Empinfodao {
 
 	@Autowired
 	private SpringMongoDBConfiguration mongoDB;
+	
 
-	@Override
+	@Autowired
+	private MongoOperations mongoOperations;
+
+	
 	public List<Object> getDetails() {
 		LOGGER.debug("Inside Empinfodaoimpl");
 		List<Object> list = new ArrayList<Object>();
@@ -62,24 +70,24 @@ public class Empinfodaoimpl implements Empinfodao {
 		
 		Compliance compliance;
 		int total_No_of_Employees = 0;
-		String formA;
-		String formB;
+		String nicFormCompliance;
+		String ciaFormCompliance;
 		int compliance_Available = 0;
 		int non_Compliance;
 		String totalEmployees = null;
 		String compliance1 = null;
 		
 		try {
-			DBCollection collection=mongoDB.getMongoTemplate().getCollection("empinfo");
+			DBCollection collection=mongoDB.getMongoTemplate().getCollection("Form_Compliance");
 			DBCursor cursor=collection.find();
 			total_No_of_Employees=cursor.count();
 			LOGGER.debug("total_No_of_Employees" + total_No_of_Employees);
 			while(cursor.hasNext()){
 				BasicDBObject object = (BasicDBObject) cursor.next();
-				formA = (String) object.get("forma");
-				formB = (String) object.get("formb");
+				nicFormCompliance = (String) object.get("ndaFormCompliant");
+				ciaFormCompliance = (String) object.get("ciaFormCompliant");
 				
-				if (formA.equals("Y") && formB.equals("Y")) {
+				if (ciaFormCompliance.equals("Y") && nicFormCompliance.equals("Y")) {
 					compliance_Available++;
 				}
 			}
@@ -97,37 +105,39 @@ public class Empinfodaoimpl implements Empinfodao {
 		}
 	}
 
-	public List<Object> getEmpById(String id, String empname) {
-
-		List<Object> list1 = new ArrayList<Object>();
+	public Employee getEmpById(String id) {
+		Employee employee = null;
 		try {
-			/*
-			 * MongoClient mongo = new MongoClient("localhost", 27017);
-			 * System.out.println("Sucessfully connected with database!!!!!!!!"
-			 * );
-			 * 
-			 * @SuppressWarnings("deprecation") DB db = mongo.getDB("database");
-			 * System.out.println("Entered in database getEmpById()");
-			 * DBCollection collection = db.getCollection("empinfo");
-			 */
-			DBCollection collection = mongoDB.getMongoTemplate().getCollection("empinfo");
-
-			BasicDBObject whereQuery = new BasicDBObject();
+			// DBCollection collection =
+			// mongoDB.getMongoTemplate().getCollection("Form_Compliance");
+			Query query = new Query();
 			// if(!"null".equals(id))
-			whereQuery.put("id", id);
+			query.addCriteria(Criteria.where("empid").is(id));
 			// if(!"null".equals(empname))
 			// whereQuery.put("empname", empname);
-
-			DBCursor cursor = collection.find(whereQuery);
-			while (cursor.hasNext()) {
-				list1.add(cursor.next());
-			}
-
+			employee = mongoOperations.findOne(query, Employee.class);
 		} catch (Exception e) {
-			LOGGER.error("Error inside Employee DAO " + e.getStackTrace());
+			LOGGER.error("Error inside Employee DAO " + e.getMessage());
 		}
-		return list1;
+		return employee;
 	}
 
-
+	
+	public Object updateEmployeeDetails(String employeeId, String formName) {
+		DBCollection collection;
+		String Status = "Failed";
+		try {
+			collection = mongoDB.getMongoTemplate().getCollection("Form_Compliance");
+			BasicDBObject whereQuery = new BasicDBObject();
+			whereQuery.put("empid", employeeId);
+			DBObject update = new BasicDBObject();
+			update.put("$set", new BasicDBObject(formName, "Y"));
+			WriteResult result = collection.update(whereQuery, update);
+			Status = "Success";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			LOGGER.error("Employee Update Error " + e.getMessage());
+		}
+		return Status;
+	}
 }

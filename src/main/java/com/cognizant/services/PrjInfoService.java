@@ -13,9 +13,6 @@ import com.cognizant.model.Project;
  *
  */
 public interface PrjInfoService {
-
-	
-	public List<Object> getProjectDetails(String id,String name);
-	
-	public Compliance getEmpDetails(String projectId,String projectName);
+		
+	public Compliance getProjectComplianceDetails(String projectId,String projectName);
 }

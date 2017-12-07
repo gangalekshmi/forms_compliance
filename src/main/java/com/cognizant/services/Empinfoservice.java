@@ -11,6 +11,8 @@ public interface Empinfoservice {
 
 	public Compliance getAllEmployee();
 	
-	public List<Object> getEmpById(String id,String name);
+	public Employee getEmpById(String id);
+	
+	public Object updateEmployeeDetails(String employeeID,String FormName);
 	
 }
